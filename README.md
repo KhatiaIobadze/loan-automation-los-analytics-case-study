@@ -78,10 +78,6 @@ This diagram shows how operational data flows into SQL-based analytics and BI da
 
 ---
 
-# 🧮 5. SQL Logic for KPI Measurement
-
-## **5.1 Manual Review Rate**
-
 ```sql
 WITH repeat_loans AS (
     SELECT
@@ -100,6 +96,7 @@ SELECT
 FROM repeat_loans
 GROUP BY dt
 ORDER BY dt;
+```
 
 ---
 
