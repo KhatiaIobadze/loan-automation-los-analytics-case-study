@@ -193,3 +193,23 @@ This case study demonstrates how SQL analytics + event logs + BI dashboards can 
     methodology.md
 
 README.md
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(customer, "Customer", "Applies for micro-segment loan product")
+
+System(LOS, "Loan Origination System (LOS)", "Handles application intake, validation, risk routing and disbursement initiation")
+
+System_Ext(decisionEngine, "Decision Engine", "Calculates LTV/PTI/DTI, behavioral score and returns decision")
+
+System_Ext(externalSystems, "External Systems", "Bureau, Registry, Scoring, etc.")
+
+System_Ext(ADS, "Auto Disbursement Service (ADS)", "Executes automatic disbursement after approval")
+
+Rel(customer, LOS, "Submits application / checks status")
+Rel(LOS, decisionEngine, "Sends application data for decision")
+Rel(decisionEngine, externalSystems, "Requests external data")
+Rel(decisionEngine, LOS, "Returns decision + reasons")
+Rel(LOS, ADS, "Triggers auto disbursement for approved loans")
+
+@enduml
