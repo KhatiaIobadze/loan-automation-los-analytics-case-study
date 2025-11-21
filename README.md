@@ -123,6 +123,7 @@ WHERE auto_issued_at IS NOT NULL
 GROUP BY dt
 ORDER BY dt;
 
+---
 ## **6. KPI Results (Before vs After Automation)**  
 Measures automation impact across core operational indicators  
 using SQL calculations and BI dashboard validation.
