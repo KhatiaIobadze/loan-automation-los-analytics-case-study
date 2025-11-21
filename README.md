@@ -1,6 +1,6 @@
 # loan-automation-los-analytics-case-study
 STP Optimization Case Study- SQL and Event-Log Analytics Measuring the Impact of Automated Loan Issuance in LOS (Manual Review Drop 100% → 20-30%; Processing Time 30-60 min → &lt;1 min)
-# 📊 Loan Automation in LOS — Data & Analytics Case Study
+# 📊 Loan Automation in LOS - Data & Analytics Case Study
 
 This repository contains the analytical framework used to measure the impact of **Automated Loan Issuance** within the **Loan Origination System (LOS)**.  
 It focuses on **SQL-based data extraction**, **event-log analytics**, **STP performance measurement**, and **BI dashboard validation**.
@@ -89,3 +89,107 @@ SELECT
 FROM repeat_loans
 GROUP BY dt
 ORDER BY dt;
+📈 4. Dashboard Validation (BI Layer)
+
+BI tools used:
+
+Power BI
+
+Looker Studio
+
+KPIs Visualized:
+
+Manual Review %
+
+STP rate
+
+Average processing time
+
+Median / P90
+
+Automated vs Manual volume split
+
+Decision engine pass/fail rate
+
+Exception triggers
+
+Data pipelines through SQL views:
+
+vw_repeat_loan_metrics
+
+vw_processing_time_metrics
+
+vw_stp_split
+
+🧱 5. Architecture (ASCII Diagram)
++-----------+       +-------------+       +-------------+       +-------------------+
+| Customer  | ----> |   LOS UI    | ----> |   LOS BE    | ----> |  Decision Engine  |
++-----------+       +-------------+       +-------------+       +---------+---------+
+                                                                         |
+                                                                         v
+                                                              +----------------------+
+                                                              |  External Systems    |
+                                                              | (Bureau, Registry,   |
+                                                              |  Scoring, etc.)      |
+                                                              +----------+-----------+
+                                                                         |
+                                                                         v
+                                                              +----------------------+
+                                                              |  Auto Disbursement   |
+                                                              |       Service (ADS)  |
+                                                              +----------------------+
+
+🧭 6. Automated vs Manual Workflow (ASCII)
+                    +------------------+
+                    |  Repeat Loan?    |
+                    +--------+---------+
+                             |
+                             v
+                  +-------------------------+
+                  | Run DE Ruleset (LTV,    |
+                  | PTI, Score, Checklist)  |
+                  +------------+------------+
+                               |
+                 +-------------+--------------+
+                 |                            |
+                 v                            v
+      +---------------------+        +------------------------+
+      | All rules passed?   |        | Rule failed / Missing  |
+      +----------+----------+        | data → Manual Review   |
+                 | Yes               +-----------+------------+
+                 v                               |
+    +-------------------------------+             |
+    | Auto-Issue (STP, <1 minute)   |             |
+    +-------------------------------+             |
+                 |                               |
+                 v                               v
+    +-------------------------------+   +-----------------------------+
+    | Auto Disbursement (ADS)       |   | Manual Review (20–30%)     |
+    +-------------------------------+   +-----------------------------+
+
+🏁 7. Conclusion
+
+Automation delivered significant operational improvements:
+
+Manual review cut from 100% → 20–30%
+
+Processing time reduced from 30–60 minutes → <1 minute
+
+STP coverage expanded to 70–80%
+
+Better consistency, fewer error cases, improved customer experience
+
+This case study demonstrates how SQL analytics + event logs + BI dashboards can quantify real business impact.
+
+📎 Files in This Repository
+/sql
+    manual_review_analysis.sql
+    processing_time_analysis.sql
+    stp_metrics.sql
+
+/docs
+    architecture_ascii.txt
+    workflow_ascii.txt
+    methodology.md
+
+README.md
