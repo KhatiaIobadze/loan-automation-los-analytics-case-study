@@ -1,75 +1,88 @@
 # loan-automation-los-analytics-case-study
 STP Optimization Case Study- SQL and Event-Log Analytics Measuring the Impact of Automated Loan Issuance in LOS (Manual Review Drop 100% → 20-30%; Processing Time 30-60 min → &lt;1 min)
-# 📊 Loan Automation in LOS - Data & Analytics Case Study
+# 📊 Loan Automation in LOS — Data & Analytics Case Study
 
-This repository contains the analytical framework used to measure the impact of **Automated Loan Issuance** within the **Loan Origination System (LOS)**.  
-It focuses on **SQL-based data extraction**, **event-log analytics**, **STP performance measurement**, and **BI dashboard validation**.
+This repository presents a complete **Data/Analytics case study** evaluating the impact of automated loan issuance within the Loan Origination System (LOS).  
+The project includes technical architecture, workflow mapping, SQL-based KPI calculations, event-log analytics, and BI dashboard validation.
 
 ---
 
-## 📌 Project Type
+## 🧭 Project Type
 **Data / Analytics Case Study**  
-SQL • Event Logs • KPI Measurement • BI Dashboards • STP Analysis
+Tools: SQL • Event Logs • BI Dashboards • UML/BPMN • Architecture Modeling
 
 ---
 
-## 🚀 Summary of Impact
+# 🏗 1. Architecture Overview
 
-Automation reduced operational load and significantly improved processing speed:
+The following diagram illustrates how LOS components, external systems, and automation services interact during the loan issuance process.
 
-| Metric | Before Automation | After Automation |
-|--------|------------------|------------------|
-| Manual Review Rate (Repeat Loans) | ~100% | **20–30%** |
-| Processing Time | 30–60 min | **< 1 min** |
-| STP Rate | ~0% | **70–80%** |
+![Architecture Diagram](./docs/architecture.png)
 
-These results were validated through SQL queries, LOS event logs, and BI dashboards.
-
----
-
-## 🧩 1. Objective
-
-Measure the real-world efficiency impact of **automated product issuance** in the LOS system by analyzing:
-
-- Manual review reduction  
-- Processing time improvements  
-- Straight-Through Processing (STP) performance  
-- Decision Engine success rate  
-- Exception paths and manual assignments  
+**Key Components**
+- **LOS UI & Backend** — handles application intake  
+- **Decision Engine** — runs rule validation (LTV, PTI, score, checklist)  
+- **External Systems** — bureau, registry, scoring data sources  
+- **Auto Disbursement Service (ADS)** — performs instant loan disbursement  
+- **Core Banking** — final posting and account updates  
 
 ---
 
-## 📂 2. Data Sources
+# 🔀 2. Automated vs Manual Workflow
 
-### **Core Tables**
+Repeat-loan applications follow one of two routing paths:
 
-| Table | Description |
-|-------|-------------|
-| `loan_applications` | Application-level master data |
-| `application_events` | Event logs with timestamps |
-| `decision_engine_logs` | Rule-engine results (LTV, PTI, score, etc.) |
-| `customer_profile` | Borrower history, repeat-loan flags |
+### **Automated Path (STP — under 1 minute)**
+- All Decision Engine rules pass  
+- LOS auto-issues the loan  
+- ADS executes automatic disbursement  
 
-### **Key Fields Used**
+### **Manual Review Path (20–30% of repeat loans)**
+- Triggered by missing data or failed rule checks  
+- Routed to a human checker  
+- Before automation: **100%** of repeat loans required manual review  
 
-- `application_id`  
-- `customer_id`  
-- `is_repeat_loan`  
-- `is_manual_review`  
-- `created_timestamp`  
-- `final_decision_timestamp`  
-- `event_type`  
-- `event_timestamp`  
+![Workflow Diagram](./docs/workflow.png)
 
 ---
 
-## ⚙️ 3. Methodology
+# 📡 3. Sequence Diagram (System Interaction Flow)
 
-### **3.1 Measuring Manual Review Rate**
+This UML sequence diagram visualizes message flow between system components:
 
-Goal: quantify how automation reduced manual workload for repeat loans.
+- Customer  
+- LOS UI  
+- LOS Backend  
+- Decision Engine  
+- External Systems  
+- ADS  
+- Core Banking  
 
-**SQL Logic (simplified):**
+**Upload your PNG and update this path:**
+
+![Sequence Diagram](./docs/sequence.png)
+
+---
+
+# 🔁 4. Data & Analytics Pipeline
+
+This diagram shows how operational data flows into SQL-based analytics and BI dashboards:
+
+1. LOS generates `loan_applications` data  
+2. Decision Engine produces rule results  
+3. `application_events` logs timestamps  
+4. SQL aggregates KPIs  
+5. Dashboard visualizes performance over time  
+
+**Upload your PNG and update this path:**
+
+![Analytics Pipeline](./docs/pipeline.png)
+
+---
+
+# 🧮 5. SQL Logic for KPI Measurement
+
+## **5.1 Manual Review Rate**
 
 ```sql
 WITH repeat_loans AS (
@@ -89,127 +102,73 @@ SELECT
 FROM repeat_loans
 GROUP BY dt
 ORDER BY dt;
-📈 4. Dashboard Validation (BI Layer)
+## **5.2 Processing Time (Event-Based Duration)**  
+Measures the time between application creation and automated issuance.  
+This KPI is calculated using event logs generated by LOS.
 
-BI tools used:
+```sql
+WITH events AS (
+    SELECT
+        application_id,
+        MIN(CASE WHEN event_type = 'APP_CREATED' THEN event_timestamp END) AS created_at,
+        MIN(CASE WHEN event_type = 'AUTO_ISSUED' THEN event_timestamp END) AS auto_issued_at
+    FROM application_events
+    GROUP BY application_id
+)
+SELECT
+    DATE(created_at) AS dt,
+    ROUND(AVG(EXTRACT(EPOCH FROM (auto_issued_at - created_at)) / 60.0), 2)
+        AS avg_auto_processing_min
+FROM events
+WHERE auto_issued_at IS NOT NULL
+GROUP BY dt
+ORDER BY dt;
+## **6. KPI Results (Before vs After Automation)**  
+Measures automation impact across core operational indicators  
+using SQL calculations and BI dashboard validation.
 
-Power BI
+| KPI | Before Automation | After Automation | Measurement Method |
+|-----|------------------|------------------|---------------------|
+| **Manual Review Rate (Repeat Loans)** | ~100% | **20–30%** | SQL aggregation on `is_manual_review` |
+| **Processing Time** | 30–60 minutes | **< 1 minute** | Event timestamps (`APP_CREATED` → `AUTO_ISSUED`) |
+| **STP Rate** | ~0% | **70–80%** | Auto-issued / total repeat loans |
+| **Human Error Rate** | High | **Significantly reduced** | Exception logs and manual correction volume |
 
-Looker Studio
+---
 
-KPIs Visualized:
+## **6.1 KPI Interpretation**  
+Explains what the measured KPIs indicate about system performance after automation.
 
-Manual Review %
+- Manual review dropped from **100% → 20–30%**, confirming that the majority of repeat-loan applications now follow an automated STP path.
+- Processing time decreased from **30–60 minutes → under 1 minute**, validating real-time rule checks and ADS integration.
+- STP rate increased to **70–80%**, demonstrating stable and scalable automation.
+- Human error significantly declined due to reduced manual intervention.
+- Event logs show consistent, predictable automation flow with minimal fallback scenarios.
+- Customer experience improved due to instant decisioning.
 
-STP rate
+---
 
-Average processing time
+## **7. Insights**  
+Key analytical and operational takeaways drawn from KPI behavior and process observation.
 
-Median / P90
+- Automation meaningfully increased **operational efficiency**.
+- Decision-making became **more consistent**, thanks to rule-based processing.
+- Overall **processing cost decreased**, as fewer staff hours were required.
+- **Customer journey improved** through immediate loan approvals.
+- **Exception handling became structured and focused**, improving accuracy of manual cases.
+- Automation enabled higher **throughput with the same team**, improving scalability.
 
-Automated vs Manual volume split
+---
 
-Decision engine pass/fail rate
+## **8. Conclusion**  
+Summarizes the measurable business impact of introducing automated loan issuance in LOS.
 
-Exception triggers
+- Manual review reduced from **100% → 20–30%**.  
+- Processing time improved from **30–60 minutes → under 1 minute**.  
+- STP stabilized at **70–80%**, proving automation reliability.  
+- Human error significantly decreased as manual workload dropped.  
+- SQL + event logs + BI dashboards enabled ongoing monitoring and optimization.  
+- Automation enhanced both **operational performance** and **customer experience**.
 
-Data pipelines through SQL views:
+This case study demonstrates how **automation + analytics + SQL-driven measurement** can transform banking processes at scale.
 
-vw_repeat_loan_metrics
-
-vw_processing_time_metrics
-
-vw_stp_split
-
-🧱 5. Architecture (ASCII Diagram)
-+-----------+       +-------------+       +-------------+       +-------------------+
-| Customer  | ----> |   LOS UI    | ----> |   LOS BE    | ----> |  Decision Engine  |
-+-----------+       +-------------+       +-------------+       +---------+---------+
-                                                                         |
-                                                                         v
-                                                              +----------------------+
-                                                              |  External Systems    |
-                                                              | (Bureau, Registry,   |
-                                                              |  Scoring, etc.)      |
-                                                              +----------+-----------+
-                                                                         |
-                                                                         v
-                                                              +----------------------+
-                                                              |  Auto Disbursement   |
-                                                              |       Service (ADS)  |
-                                                              +----------------------+
-
-🧭 6. Automated vs Manual Workflow (ASCII)
-                    +------------------+
-                    |  Repeat Loan?    |
-                    +--------+---------+
-                             |
-                             v
-                  +-------------------------+
-                  | Run DE Ruleset (LTV,    |
-                  | PTI, Score, Checklist)  |
-                  +------------+------------+
-                               |
-                 +-------------+--------------+
-                 |                            |
-                 v                            v
-      +---------------------+        +------------------------+
-      | All rules passed?   |        | Rule failed / Missing  |
-      +----------+----------+        | data → Manual Review   |
-                 | Yes               +-----------+------------+
-                 v                               |
-    +-------------------------------+             |
-    | Auto-Issue (STP, <1 minute)   |             |
-    +-------------------------------+             |
-                 |                               |
-                 v                               v
-    +-------------------------------+   +-----------------------------+
-    | Auto Disbursement (ADS)       |   | Manual Review (20–30%)     |
-    +-------------------------------+   +-----------------------------+
-
-🏁 7. Conclusion
-
-Automation delivered significant operational improvements:
-
-Manual review cut from 100% → 20–30%
-
-Processing time reduced from 30–60 minutes → <1 minute
-
-STP coverage expanded to 70–80%
-
-Better consistency, fewer error cases, improved customer experience
-
-This case study demonstrates how SQL analytics + event logs + BI dashboards can quantify real business impact.
-
-📎 Files in This Repository
-/sql
-    manual_review_analysis.sql
-    processing_time_analysis.sql
-    stp_metrics.sql
-
-/docs
-    architecture_ascii.txt
-    workflow_ascii.txt
-    methodology.md
-
-README.md
-@startuml
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
-
-Person(customer, "Customer", "Applies for micro-segment loan product")
-
-System(LOS, "Loan Origination System (LOS)", "Handles application intake, validation, risk routing and disbursement initiation")
-
-System_Ext(decisionEngine, "Decision Engine", "Calculates LTV/PTI/DTI, behavioral score and returns decision")
-
-System_Ext(externalSystems, "External Systems", "Bureau, Registry, Scoring, etc.")
-
-System_Ext(ADS, "Auto Disbursement Service (ADS)", "Executes automatic disbursement after approval")
-
-Rel(customer, LOS, "Submits application / checks status")
-Rel(LOS, decisionEngine, "Sends application data for decision")
-Rel(decisionEngine, externalSystems, "Requests external data")
-Rel(decisionEngine, LOS, "Returns decision + reasons")
-Rel(LOS, ADS, "Triggers auto disbursement for approved loans")
-
-@enduml
