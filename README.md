@@ -1,6 +1,4 @@
-# loan-automation-los-analytics-case-study
-STP Optimization Case Study- SQL and Event-Log Analytics Measuring the Impact of Automated Loan Issuance in LOS (Manual Review Drop 100% → 20-30%; Processing Time 30-60 min → &lt;1 min)
-# 📊 Loan Automation in LOS — Data & Analytics Case Study
+# 📊 Loan Automation in LOS - Data & Analytics Case Study
 
 This repository presents a complete **Data/Analytics case study** evaluating the impact of automated loan issuance within the Loan Origination System (LOS).  
 The project includes technical architecture, workflow mapping, SQL-based KPI calculations, event-log analytics, and BI dashboard validation.
