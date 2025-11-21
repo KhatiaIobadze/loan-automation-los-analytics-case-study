@@ -72,9 +72,7 @@ This diagram shows how operational data flows into SQL-based analytics and BI da
 4. SQL aggregates KPIs  
 5. Dashboard visualizes performance over time  
 
-**Upload your PNG and update this path:**
-
-![Analytics Pipeline](./docs/pipeline.png)
+![Analytics Pipeline](./docs/analytics_pipeline.png)
 
 ---
 
