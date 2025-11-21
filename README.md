@@ -135,6 +135,7 @@ using SQL calculations and BI dashboard validation.
 | **STP Rate** | ~0% | **70–80%** | Auto-issued / total repeat loans |
 | **Human Error Rate** | High | **Significantly reduced** | Exception logs and manual correction volume |
 
+---
 
 ## **6.1 KPI Interpretation**  
 Explains what the measured KPIs indicate about system performance after automation.
@@ -171,4 +172,5 @@ Summarizes the measurable business impact of introducing automated loan issuance
 - Automation enhanced both **operational performance** and **customer experience**.
 
 This case study demonstrates how **automation + analytics + SQL-driven measurement** can transform banking processes at scale.
+
 
