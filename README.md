@@ -124,18 +124,28 @@ GROUP BY dt
 ORDER BY dt;
 
 
-## **6. KPI Results (Before vs After Automation)**
+## **6. KPI Results (Before vs After Automation)**  
 Measures automation impact across core operational indicators  
 using SQL calculations and BI dashboard validation.
 
 | KPI | Before Automation | After Automation | Measurement Method |
-|-----|--------------------|------------------|---------------------|
-| Manual Review Rate (Repeat Loans) | ~100% | **20–30%** | SQL aggregation on `is_manual_review` |
-| Processing Time | 30–60 minutes | **< 1 minute** | Event timestamps (`APP_CREATED` → `AUTO_ISSUED`) |
-| STP Rate | ~0% | **70–80%** | Auto-issued / total repeat loans |
-| Human Error Rate | High | **Significantly reduced** | Exception logs and correction volume |
+|-----|------------------|------------------|---------------------|
+| **Manual Review Rate (Repeat Loans)** | ~100% | **20–30%** | SQL aggregation on `is_manual_review` |
+| **Processing Time** | 30–60 minutes | **< 1 minute** | Event timestamps (`APP_CREATED` → `AUTO_ISSUED`) |
+| **STP Rate** | ~0% | **70–80%** | Auto-issued / total repeat loans |
+| **Human Error Rate** | High | **Significantly reduced** | Exception logs and manual correction volume |
 
+---
 
+## **6.1 KPI Interpretation**  
+Explains what the measured KPIs indicate about system performance after automation.
+
+- Manual review dropped from **100% → 20–30%**, confirming that the majority of repeat-loan applications now follow an automated STP path.
+- Processing time decreased from **30–60 minutes → under 1 minute**, validating real-time rule checks and ADS integration.
+- STP rate increased to **70–80%**, demonstrating stable and scalable automation.
+- Human error significantly declined due to reduced manual intervention.
+- Event logs show consistent, predictable automation flow with minimal fallback scenarios.
+- Customer experience improved due to instant decisioning.
 
 ---
 
@@ -162,5 +172,6 @@ Summarizes the measurable business impact of introducing automated loan issuance
 - Automation enhanced both **operational performance** and **customer experience**.
 
 This case study demonstrates how **automation + analytics + SQL-driven measurement** can transform banking processes at scale.
+
 
 
