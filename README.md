@@ -101,3 +101,16 @@ FROM repeat_loans
 GROUP BY dt
 ORDER BY dt;
 
+---
+
+## 6. KPI Results (Before vs After Automation)
+
+Measures automation impact across core operational indicators  
+using SQL calculations and BI dashboard validation.
+
+| KPI | Before Automation | After Automation | Measurement Method |
+|-----|------------------|------------------|---------------------|
+| **Manual Review Rate (Repeat Loans)** | ~100% | **20–30%** | SQL aggregation on `is_manual_review` |
+| **Processing Time** | 30–60 minutes | **< 1 minute** | Event timestamps (`APP_CREATED` → `AUTO_ISSUED`) |
+| **STP Rate** | ~0% | **70–80%** | Auto-issued / total repeat loans |
+| **Human Error Rate** | High | **Significantly reduced** | Exception logs and manual correction volume |
