@@ -125,7 +125,7 @@ ORDER BY dt;
 
 ---
 
-## **6. KPI Results (Before vs After Automation)**  
+# **6. KPI Results (Before vs After Automation)**  
 Measures automation impact across core operational indicators  
 using SQL calculations and BI dashboard validation.
 
@@ -136,43 +136,6 @@ using SQL calculations and BI dashboard validation.
 | **STP Rate** | ~0% | **70–80%** | Auto-issued / total repeat loans |
 | **Human Error Rate** | High | **Significantly reduced** | Exception logs and manual correction volume |
 
----
-
-## **6.1 KPI Interpretation**  
-Explains what the measured KPIs indicate about system performance after automation.
-
-- Manual review dropped from **100% → 20–30%**, confirming that the majority of repeat-loan applications now follow an automated STP path.
-- Processing time decreased from **30–60 minutes → under 1 minute**, validating real-time rule checks and ADS integration.
-- STP rate increased to **70–80%**, demonstrating stable and scalable automation.
-- Human error significantly declined due to reduced manual intervention.
-- Event logs show consistent, predictable automation flow with minimal fallback scenarios.
-- Customer experience improved due to instant decisioning.
-
----
-
-## **7. Insights**  
-Key analytical and operational takeaways drawn from KPI behavior and process observation.
-
-- Automation meaningfully increased **operational efficiency**.
-- Decision-making became **more consistent**, thanks to rule-based processing.
-- Overall **processing cost decreased**, as fewer staff hours were required.
-- **Customer journey improved** through immediate loan approvals.
-- **Exception handling became structured and focused**, improving accuracy of manual cases.
-- Automation enabled higher **throughput with the same team**, improving scalability.
-
----
-
-## **8. Conclusion**  
-Summarizes the measurable business impact of introducing automated loan issuance in LOS.
-
-- Manual review reduced from **100% → 20–30%**.  
-- Processing time improved from **30–60 minutes → under 1 minute**.  
-- STP stabilized at **70–80%**, proving automation reliability.  
-- Human error significantly decreased as manual workload dropped.  
-- SQL + event logs + BI dashboards enabled ongoing monitoring and optimization.  
-- Automation enhanced both **operational performance** and **customer experience**.
-
-This case study demonstrates how **automation + analytics + SQL-driven measurement** can transform banking processes at scale.
 
 
 
