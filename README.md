@@ -15,7 +15,8 @@ Tools: SQL • Event Logs • BI Dashboards • UML/BPMN • Architecture Modeli
 
 The following diagram illustrates how LOS components, external systems, and automation services interact during the loan issuance process.
 
-![Architecture Diagram.png](./docs/architecture.png)
+## 🏗️ Architecture Diagram
+![Architecture Diagram](./Architecture Diagram.png)
 
 **Key Components**
 - **LOS UI & Backend** — handles application intake  
@@ -40,7 +41,8 @@ Repeat-loan applications follow one of two routing paths:
 - Routed to a human checker  
 - Before automation: **100%** of repeat loans required manual review  
 
-![Workflow Diagram](./docs/workflow.png)
+## 🔄 Workflow
+![Workflow Diagram](./Workflow Diagram.png)
 
 ---
 
@@ -58,7 +60,9 @@ This UML sequence diagram visualizes message flow between system components:
 
 **Upload your PNG and update this path:**
 
-![UML](Assets/Checklist_Evaluation_Sequence.png)
+## 📐 UML Sequence
+![System Interaction Flow](./UML.png)
+
 
 ---
 
@@ -72,7 +76,8 @@ This diagram shows how operational data flows into SQL-based analytics and BI da
 4. SQL aggregates KPIs  
 5. Dashboard visualizes performance over time  
 
-![Analytics Pipeline](./docs/analytics_pipeline.png)
+## 📊 Analytics Pipeline
+![Analytics Pipeline](./Analytics Pipeline.png)
 
 ---
 
