@@ -15,7 +15,7 @@ Tools: SQL • Event Logs • BI Dashboards • UML/BPMN • Architecture Modeli
 
 The following diagram illustrates how LOS components, external systems, and automation services interact during the loan issuance process.
 
-![Architecture Diagram](./docs/architecture.png)
+![Architecture Diagram.png](./docs/architecture.png)
 
 **Key Components**
 - **LOS UI & Backend** — handles application intake  
