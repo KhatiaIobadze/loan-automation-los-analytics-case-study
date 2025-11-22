@@ -58,7 +58,7 @@ This UML sequence diagram visualizes message flow between system components:
 
 **Upload your PNG and update this path:**
 
-![Sequence Diagram](Assets/Checklist_Evaluation_Sequence.png)
+![UML](Assets/Checklist_Evaluation_Sequence.png)
 
 ---
 
