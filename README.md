@@ -18,11 +18,11 @@ The following diagram illustrates how LOS components, external systems, and auto
 ![Architecture Diagram](./Architecture.png)
 
 **Key Components**
-- **LOS UI & Backend** — handles application intake  
-- **Decision Engine** — runs rule validation (LTV, PTI, score, checklist)  
-- **External Systems** — bureau, registry, scoring data sources  
-- **Auto Disbursement Service (ADS)** — performs instant loan disbursement  
-- **Core Banking** — final posting and account updates  
+- **LOS UI & Backend** - handles application intake  
+- **External Systems** - bureau, registry, scoring data sources
+- **Decision Engine** - runs rule validation (LTV, PTI, score, checklist) 
+- **Auto Disbursement Service (ADS)** - performs instant loan disbursement  
+- **Core Banking** - final posting and account updates  
 
 ---
 
@@ -30,12 +30,12 @@ The following diagram illustrates how LOS components, external systems, and auto
 
 Repeat-loan applications follow one of two routing paths:
 
-### **Automated Path (STP — under 1 minute)**
+### **Automated Path (STP - under 1 minute)**
 - All Decision Engine rules pass  
 - LOS auto-issues the loan  
 - ADS executes automatic disbursement  
 
-### **Manual Review Path (20–30% of repeat loans)**
+### **Manual Review Path (20-30% of repeat loans)**
 - Triggered by missing data or failed rule checks  
 - Routed to a human checker  
 - Before automation: **100%** of repeat loans required manual review  
@@ -79,7 +79,6 @@ This diagram shows how operational data flows into SQL-based analytics and BI da
 
 ## **5.1 Manual Review Rate**
 
-```sql
 WITH repeat_loans AS (
     SELECT
         application_id,
@@ -91,13 +90,15 @@ WITH repeat_loans AS (
 SELECT
     dt,
     ROUND(
-        100.0 * SUM(CASE WHEN is_manual_review = 1 THEN 1 END) / COUNT(*),
+        100.0 * SUM(CASE WHEN is_manual_review = 1 THEN 1 ELSE 0 END)
+        / NULLIF(COUNT(*), 0),
         2
     ) AS manual_review_rate_pct
 FROM repeat_loans
 GROUP BY dt
 ORDER BY dt;
 ```
+Returns the daily percentage of repeat-loan applications that were routed to manual review.
 
 ---
 
