@@ -220,13 +220,13 @@ Measures what percentage of all MSME loans issued in a day were processed automa
 Automation Penetration (%) =
 *(Daily repeat loans % of total)* × *(Automation rate within repeat loans)*
 Given:
-- Repeat loans share = **78%**
+- Repeat loans share = **75%**
 - Automation success rate within repeats = **20–30%**
 
 **Calculation:**
-- Lower bound: 0.78 × 0.20 = **15.6%**
-- Upper bound: 0.78 × 0.30 = **23.4%**
-So, **15.6–23.4% of all daily MSME issuances are now fully automated.**
+- Lower bound: 0.75 × 0.20 = **15%**
+- Upper bound: 0.75 × 0.30 = **23%**
+So, **15–23% of all daily MSME issuances are now fully automated.**
 
 ---
 
@@ -244,7 +244,7 @@ Key analytical and operational takeaways drawn from KPI behavior and process obs
 - Automation sharply improved **operational efficiency** and reduced manual workload.
 - **Consistency increased**, as rule-based processing removed variability in decisions.
 - **Processing time dropped** from tens of minutes to under one minute, improving customer experience.
-- Around **15.6–23.4%** of all daily MSME loans are now fully automated, showing strong early adoption.
+- Around **15–23%** of all daily MSME loans are now fully automated, showing strong early adoption.
 - The team achieves **higher throughput without additional resources**, while manual reviews focus only on true exceptions.
 
 ---
@@ -252,7 +252,7 @@ Key analytical and operational takeaways drawn from KPI behavior and process obs
 ## **8. Conclusion (Simplified)**  
 Summarizes the measurable business impact of introducing automated loan issuance in LOS.
 
-- The automation of second and subsequent MSME loans delivered clear efficiency gains: manual review dropped from **100% → 20–30%**, processing time fell to **under one minute**, and **15.6–23.4%** of all daily issuances are now fully automated.
+- The automation of second and subsequent MSME loans delivered clear efficiency gains: manual review dropped from **100% → 20–30%**, processing time fell to **under one minute**, and **15–23%** of all daily issuances are now fully automated.
 - These improvements strengthened decision consistency, reduced human error, and enhanced customer experience, while enabling higher throughput with the same operational capacity.
 
 
