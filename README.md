@@ -118,31 +118,89 @@ WITH events AS (
 )
 SELECT
     DATE(created_at) AS dt,
-    ROUND(AVG(EXTRACT(EPOCH FROM (auto_issued_at - created_at)) / 60.0), 2)
-        AS avg_auto_processing_min
+    ROUND(
+        AVG(EXTRACT(EPOCH FROM (auto_issued_at - created_at)) / 60.0),
+        2
+    ) AS avg_auto_processing_min
 FROM events
-WHERE auto_issued_at IS NOT NULL
+WHERE created_at IS NOT NULL
+  AND auto_issued_at IS NOT NULL
+  AND auto_issued_at >= created_at
 GROUP BY dt
 ORDER BY dt;
 ```
+Returns the daily average time (in minutes) from application creation to automatic issuance, based on LOS event logs
 
 ---
 
-## 6. KPI Results (Before vs After Automation)
+## **5.3 Daily Total Loan Issuances - MSME**
+
+```sql
+SELECT
+    DATE(l.issued_at) AS dt,
+    COUNT(*) AS total_loan_count
+FROM loans l
+WHERE DATE(l.issued_at) = :report_date
+  AND l.segment = 'MSME'
+  AND l.source_bank = 'TBC'
+GROUP BY dt
+ORDER BY dt;
+```
+Returns the total number of MSME loans issued on the selected day.
+
+---
+
+## **5.4 Daily Primary Loan Issuances - MSME**
+
+```sql
+SELECT
+    DATE(l.issued_at) AS dt,
+    COUNT(*) AS primary_loan_count
+FROM loans l
+WHERE DATE(l.issued_at) = :report_date
+  AND l.segment = 'MSME'
+  AND l.source_bank = 'TBC'
+  AND l.is_repeat_loan = 0
+GROUP BY dt
+ORDER BY dt;
+```
+Returns the number of first-time (primary) MSME loans issued on the selected day.
+
+---
+
+## **5.5 Daily Second and Subsequent Loan Issuances - MSME**
+
+```sql
+SELECT
+    DATE(l.issued_at) AS dt,
+    COUNT(*) AS second_and_subsequent_count
+FROM loans l
+WHERE DATE(l.issued_at) = :report_date
+  AND l.segment = 'MSME'
+  AND l.source_bank = 'TBC'
+  AND l.is_repeat_loan = 1
+GROUP BY dt
+ORDER BY dt;
+```
+Returns the number of second and subsequent MSME loans issued on the selected day
+
+---
+
+# 📊 6. KPI Results (Before vs After Automation)
 
 Measures automation impact across core operational indicators  
 using SQL calculations and BI dashboard validation.
 
 | KPI | Before Automation | After Automation | Measurement Method |
 |-----|------------------|------------------|---------------------|
-| **Manual Review Rate (Repeat Loans)** | ~100% | **20–30%** | SQL aggregation on `is_manual_review` |
+| **Manual Review Rate (Repeat Loans)** | ~100% | **20-30%** | SQL aggregation on `is_manual_review` |
 | **Processing Time** | 30–60 minutes | **< 1 minute** | Event timestamps (`APP_CREATED` → `AUTO_ISSUED`) |
 | **STP Rate** | ~0% | **70–80%** | Auto-issued / total repeat loans |
 | **Human Error Rate** | High | **Significantly reduced** | Exception logs and manual correction volume |
 
 ---
 
-## **6.1 KPI Interpretation**  
+## **6.1 KPI Interpretation (Before vs After Automation)**  
 Explains what the measured KPIs indicate about system performance after automation.
 
 - Manual review dropped from **100% → 20–30%**, confirming that the majority of repeat-loan applications now follow an automated STP path.
@@ -156,26 +214,46 @@ Explains what the measured KPIs indicate about system performance after automati
 
 ---
 
-## **7. Insights**  
-Key analytical and operational takeaways drawn from KPI behavior and process observation.
+## **6.2 Daily Automation Penetration Rate**
+Measures what percentage of all MSME loans issued in a day were processed automatically.
 
-- Automation meaningfully increased **operational efficiency**.
-- Decision-making became **more consistent**, thanks to rule-based processing.
-- Overall **processing cost decreased**, as fewer staff hours were required.
-- **Customer journey improved** through immediate loan approvals.
-- **Exception handling became structured and focused**, improving accuracy of manual cases.
-- Automation enabled higher **throughput with the same team**, improving scalability.
+Automation Penetration (%) =
+*(Daily repeat loans % of total)* × *(Automation rate within repeat loans)*
+Given:
+- Repeat loans share = **78%**
+- Automation success rate within repeats = **20–30%**
+
+**Calculation:**
+- Lower bound: 0.78 × 0.20 = **15.6%**
+- Upper bound: 0.78 × 0.30 = **23.4%**
+So, **15.6–23.4% of all daily MSME issuances are now fully automated.**
 
 ---
 
-## **8. Conclusion**  
+## **6.3 KPI Interpretation (Daily Automation Penetration Rate)**
+- Although automation applies *only* to second & subsequent loans,  
+- it still automates **15-23%** of the bank’s entire daily MSME issuance volume.
+
+![KPI Interpretation](./BI2.png)
+
+---
+
+## **7. Insights (Executive Summary)**  
+Key analytical and operational takeaways drawn from KPI behavior and process observation.
+
+- Automation sharply improved **operational efficiency** and reduced manual workload.
+- **Consistency increased**, as rule-based processing removed variability in decisions.
+- **Processing time dropped** from tens of minutes to under one minute, improving customer experience.
+- Around **15.6–23.4%** of all daily MSME loans are now fully automated, showing strong early adoption.
+- The team achieves **higher throughput without additional resources**, while manual reviews focus only on true exceptions.
+
+---
+
+## **8. Conclusion (Simplified)**  
 Summarizes the measurable business impact of introducing automated loan issuance in LOS.
 
-- Manual review reduced from **100% → 20–30%**.  
-- Processing time improved from **30–60 minutes → under 1 minute**.  
-- STP stabilized at **70–80%**, proving automation reliability.  
-- Human error significantly decreased as manual workload dropped.  
-- SQL + event logs + BI dashboards enabled ongoing monitoring and optimization.  
-- Automation enhanced both **operational performance** and **customer experience**.
+- The automation of second and subsequent MSME loans delivered clear efficiency gains: manual review dropped from **100% → 20–30%**, processing time fell to **under one minute**, and **15.6–23.4%** of all daily issuances are now fully automated.
+- These improvements strengthened decision consistency, reduced human error, and enhanced customer experience, while enabling higher throughput with the same operational capacity.
+
 
 This case study demonstrates how **automation + analytics + SQL-driven measurement** can transform banking processes at scale.
