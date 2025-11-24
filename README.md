@@ -63,7 +63,7 @@ This diagram shows how operational data flows into SQL-based analytics and BI da
 4. SQL aggregates KPIs  
 5. Dashboard visualizes performance over time  
 
-![Analytics Pipeline](./Pipeline.png)
+![Analytics Pipeline](./Pipeline1.png)
 
 ---
 
@@ -223,7 +223,7 @@ So, **15.6–23.4% of all daily MSME issuances are now fully automated.**
 - Although automation applies *only* to second & subsequent loans,  
 - it still automates **15.6–23.4%** of the bank’s entire daily MSME issuance volume.
 
-![KPI Interpretation](./BI2.png)
+![KPI Interpretation](./Overview.png)
 
 ---
 
