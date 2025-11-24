@@ -187,7 +187,7 @@ using SQL calculations and BI dashboard validation.
 |-----|------------------|------------------|---------------------|
 | **Manual Review Rate (Repeat Loans)** | ~100% | **20-30%** | SQL aggregation on `is_manual_review` |
 | **Processing Time** | 30–60 minutes | **< 1 minute** | Event timestamps (`APP_CREATED` → `AUTO_ISSUED`) |
-| **STP Rate** | ~0% | **70–80%** | Auto-issued / total repeat loans |
+| **STP Rate** | ~0% | **75-85%** | Auto-issued / total repeat loans |
 | **Human Error Rate** | High | **Significantly reduced** | Exception logs and manual correction volume |
 
 ---
@@ -197,7 +197,7 @@ Explains what the measured KPIs indicate about system performance after automati
 
 - Manual review dropped from **100% → 20–30%**, confirming that the majority of repeat-loan applications now follow an automated STP path.
 - Processing time decreased from **30–60 minutes → under 1 minute**, validating real-time rule checks and ADS integration.
-- STP rate increased to **70–80%**, demonstrating stable and scalable automation.
+- STP rate increased to **75–85%**, demonstrating stable and scalable automation.
 - Human error significantly declined due to reduced manual intervention.
 - Event logs show consistent, predictable automation flow with minimal fallback scenarios.
 - Customer experience improved due to instant decisioning.
@@ -212,16 +212,16 @@ Measures what percentage of all MSME loans issued in a day were processed automa
 Automation Penetration (%) =
 *(Daily repeat loans % of total)* × *(Automation rate within repeat loans)*
 Given:
-- Repeat loans share = **78%**
+- Repeat loans share = **83%**
 - Automation success rate within repeats = **20–30%**
 
-So, **15.6–23.4% of all daily MSME issuances are now fully automated.**
+So, **25% of all daily MSME issuances are now fully automated.**
 
 ---
 
 ## **6.3 KPI Interpretation (Daily Automation Penetration Rate)**
 - Although automation applies *only* to second & subsequent loans,  
-- it still automates **15.6–23.4%** of the bank’s entire daily MSME issuance volume.
+- it still automates **25%** of the bank’s entire daily MSME issuance volume.
 
 ![KPI Interpretation](./Overview.png)
 
@@ -233,7 +233,7 @@ Key analytical and operational takeaways drawn from KPI behavior and process obs
 - Automation sharply improved **operational efficiency** and reduced manual workload.
 - **Consistency increased**, as rule-based processing removed variability in decisions.
 - **Processing time dropped** from tens of minutes to under one minute, improving customer experience.
-- Around **15.6–23.4%** of all daily MSME loans are now fully automated, showing strong early adoption.
+- Around **25%** of all daily MSME loans are now fully automated, showing strong early adoption.
 - The team achieves **higher throughput without additional resources**, while manual reviews focus only on true exceptions.
 
 ---
@@ -241,7 +241,7 @@ Key analytical and operational takeaways drawn from KPI behavior and process obs
 ## **8. Conclusion (Simplified)**  
 Summarizes the measurable business impact of introducing automated loan issuance in LOS.
 
-- The automation of second and subsequent MSME loans delivered clear efficiency gains: manual review dropped from **100% → 20–30%**, processing time fell to **under one minute**, and **15.6–23.4%** of all daily issuances are now fully automated.
+- The automation of second and subsequent MSME loans delivered clear efficiency gains: manual review dropped from **100% → 20–30%**, processing time fell to **under one minute**, and **25%** of all daily issuances are now fully automated.
 - These improvements strengthened decision consistency, reduced human error, and enhanced customer experience, while enabling higher throughput with the same operational capacity.
 
 
