@@ -46,15 +46,7 @@ Repeat-loan applications follow one of two routing paths:
 
 # 📡 3. Sequence Diagram (System Interaction Flow)
 
-This UML sequence diagram visualizes message flow between system components:
-
-- Customer  
-- LOS UI  
-- LOS Backend  
-- Decision Engine  
-- External Systems  
-- ADS  
-- Core Banking  
+This diagram shows how LOS retrieves the checklist comment, sends it to the Decision Engine for evaluation, and based on the result either creates a manual review task (RED) or triggers automatic disbursement via ADS and CBS (GREEN).  
 
 ![System Interaction Flow](./UML.png)
 
