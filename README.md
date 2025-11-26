@@ -1,17 +1,17 @@
-# 📊 Loan Automation in LOS - Data & Analytics Case Study
+##  Loan Automation in LOS - Data & Analytics Case Study
 
 This repository presents a complete **Data/Analytics case study** evaluating the impact of automated loan issuance within the Loan Origination System (LOS).  
 The project includes technical architecture, workflow mapping, SQL-based KPI calculations, event-log analytics, and BI dashboard validation.
 
 ---
 
-## 🧭 Project Type
+##  Project Type
 **Data / Analytics Case Study**  
 Tools: SQL • Event Logs • BI Dashboards • UML/BPMN • Architecture Modeling
 
 ---
 
-# 🏗 1. Architecture Overview
+#  1. Architecture Overview
 
 The following diagram illustrates how LOS components, external systems, and automation services interact during the loan issuance process.
 
@@ -26,7 +26,7 @@ The following diagram illustrates how LOS components, external systems, and auto
 
 ---
 
-# 🔀 2. Automated vs Manual Workflow
+#  2. Automated vs Manual Workflow
 
 Repeat-loan applications follow one of two routing paths:
 
@@ -44,7 +44,7 @@ Repeat-loan applications follow one of two routing paths:
 
 ---
 
-# 📡 3. Sequence Diagram (System Interaction Flow)
+#  3. Sequence Diagram (System Interaction Flow)
 
 This diagram shows how LOS retrieves the checklist comment, sends it to the Decision Engine for evaluation, and based on the result either creates a manual review task (RED) or triggers automatic disbursement via ADS and CBS (GREEN).  
 
@@ -53,7 +53,7 @@ This diagram shows how LOS retrieves the checklist comment, sends it to the Deci
 
 ---
 
-# 🔁 4. Data & Analytics Pipeline
+#  4. Data & Analytics Pipeline
 
 This diagram shows how operational data flows into SQL-based analytics and BI dashboards:
 
@@ -67,7 +67,7 @@ This diagram shows how operational data flows into SQL-based analytics and BI da
 
 ---
 
-# 🧮 5. SQL Logic for KPI Measurement
+#  5. SQL Logic for KPI Measurement
 
 ## **5.1 Manual Review Rate**
 
@@ -178,7 +178,7 @@ Returns the number of second and subsequent MSME loans issued on the selected da
 
 ---
 
-# 📊 6. KPI Results (Before vs After Automation)
+#  6. KPI Results (Before vs After Automation)
 
 Measures automation impact across core operational indicators  
 using SQL calculations and BI dashboard validation.
