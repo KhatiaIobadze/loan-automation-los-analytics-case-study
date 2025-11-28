@@ -17,13 +17,6 @@ The following diagram illustrates how LOS components, external systems, and auto
 
 ![Architecture Diagram](./Architecture.png)
 
-**Key Components**
-- **LOS UI & Backend** - handles application intake  
-- **External Systems** - bureau, registry, scoring data sources
-- **Decision Engine** - runs rule validation (LTV, PTI, score, checklist) 
-- **Auto Disbursement Service (ADS)** - performs instant loan disbursement  
-- **Core Banking** - final posting and account updates  
-
 ---
 
 ##  2. Automated vs Manual Workflow
